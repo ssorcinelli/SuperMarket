@@ -1,5 +1,8 @@
 package it.dstech.controller;
 
+import java.time.LocalDate;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -46,7 +49,16 @@ public class CartaCreditoController {
 			User user = userService.findByUsername(auth.getName());	
 			cartaCredito.setUser(user);
 			CartaCredito saved = cartaCreditoService.saveCartaCredito(cartaCredito);
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yy");
+		    String date = saved.getScadenza();
+		    YearMonth scadenzaMese = YearMonth.parse(date, formatter);
+		    LocalDate scadenza = scadenzaMese.atEndOfMonth();
+			if (scadenza.isAfter(LocalDate.now())) {
+				logger.error("La data di scadenza non è valida");
+				return new ResponseEntity<CartaCredito>(HttpStatus.INTERNAL_SERVER_ERROR);
+			} else {
 			return new ResponseEntity<CartaCredito>(saved, HttpStatus.CREATED);
+			}
 		} catch (Exception e) {
 			return new ResponseEntity<CartaCredito>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}

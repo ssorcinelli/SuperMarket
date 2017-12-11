@@ -13,7 +13,7 @@ public class CartaCredito {
 	
 	private String numero;
 	
-	private LocalDate scadenza;
+	private String scadenza;
 	
 	private String ccv;
 	
@@ -27,7 +27,7 @@ public class CartaCredito {
 		
 	}
 
-	public CartaCredito(int id, String numero, LocalDate scadenza, String ccv, double credito, User user) {
+	public CartaCredito(int id, String numero, String scadenza, String ccv, double credito, User user) {
 		this.id = id;
 		this.numero = numero;
 		this.scadenza = scadenza;
@@ -62,13 +62,13 @@ public class CartaCredito {
 
 
 
-	public LocalDate getScadenza() {
+	public String getScadenza() {
 		return scadenza;
 	}
 
 
 
-	public void setScadenza(LocalDate scadenza) {
+	public void setScadenza(String scadenza) {
 		this.scadenza = scadenza;
 	}
 
