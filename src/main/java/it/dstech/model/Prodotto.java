@@ -35,6 +35,42 @@ public class Prodotto {
 	private String img;
 	
 	private int offerta;
+	
+	public Prodotto(int id, String nome, String marca, LocalDate dataDiScadenza, Categoria categoria,
+			double quantitaDisponibile, double quantitaDaAcquistare, Unita unita, double prezzoUnitario,
+			double prezzoSenzaIva, double prezzoIvato, String img, int offerta) {
+		Id = id;
+		this.nome = nome;
+		this.marca = marca;
+		this.dataDiScadenza = dataDiScadenza;
+		this.categoria = categoria;
+		this.quantitaDisponibile = quantitaDisponibile;
+		this.quantitaDaAcquistare = quantitaDaAcquistare;
+		this.unita = unita;
+		this.prezzoUnitario = prezzoUnitario;
+		this.prezzoSenzaIva = prezzoSenzaIva;
+		this.prezzoIvato = prezzoIvato;
+		this.img = img;
+		this.offerta = offerta;
+	}
+	
+	public Prodotto() {
+		
+	}
+
+	public Prodotto(String nome, String marca, LocalDate dataDiScadenza, Categoria categoria,
+			double quantitaDisponibile, Unita unita, double prezzoUnitario, String img) {
+		this.nome = nome;
+		this.marca = marca;
+		this.dataDiScadenza = dataDiScadenza;
+		this.categoria = categoria;
+		this.quantitaDisponibile = quantitaDisponibile;
+		this.unita = unita;
+		this.prezzoUnitario = prezzoUnitario;
+		this.img = img;
+	}
+
+
 
 	public int getId() {
 		return Id;
@@ -113,7 +149,7 @@ public class Prodotto {
 	}
 
 	public void setPrezzoSenzaIva(double prezzoSenzaIva) {
-		this.prezzoSenzaIva = prezzoSenzaIva;
+		this.prezzoSenzaIva = this.prezzoIvato - (this.prezzoIvato/100*22);
 	}
 
 	public double getPrezzoIvato() {
