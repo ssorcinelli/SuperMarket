@@ -1,9 +1,15 @@
 package it.dstech.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 @Entity
 public class Acquisti {
+	
+	@Id
+	@GeneratedValue
+	private int id;
 	
 	private int idUser;
 	
@@ -12,6 +18,31 @@ public class Acquisti {
 	private int idProdotto;
 	
 	
+
+	public Acquisti(int id, int idUser, int idFattura, int idProdotto) {
+		this.id = id;
+		this.idUser = idUser;
+		this.idFattura = idFattura;
+		this.idProdotto = idProdotto;
+	}
+	
+	public Acquisti(int idUser, int idFattura, int idProdotto) {
+		this.idUser = idUser;
+		this.idFattura = idFattura;
+		this.idProdotto = idProdotto;
+	}
+	
+	public Acquisti() {
+		
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public int getIdUser() {
 		return idUser;
@@ -36,11 +67,10 @@ public class Acquisti {
 	public void setIdProdotto(int idProdotto) {
 		this.idProdotto = idProdotto;
 	}
-	
-	public void setAcquisti(int idUser, int idFattura, int idProdotto) {
-		this.idFattura=idFattura;
-		this.idUser=idUser;
-		this.idProdotto=idProdotto;
-	}
 
+	@Override
+	public String toString() {
+		return "Acquisti [id=" + id + ", idUser=" + idUser + ", idFattura=" + idFattura + ", idProdotto=" + idProdotto
+				+ "]";
+	}
 }

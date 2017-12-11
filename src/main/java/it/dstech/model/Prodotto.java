@@ -1,21 +1,17 @@
 package it.dstech.model;
 
-import java.time.LocalDate;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 
 @Entity
 public class Prodotto {
 	@Id
 	@GeneratedValue
-	private int Id;
+	private int id;
 	
 	private String nome;
 	
@@ -48,7 +44,7 @@ public class Prodotto {
 	public Prodotto(int id, String nome, String marca, String dataDiScadenza, Categoria categoria,
 			double quantitaDisponibile, double quantitaDaAcquistare, Unita unita, double prezzoUnitario,
 			double prezzoSenzaIva, double prezzoIvato, String img, int offerta) {
-		Id = id;
+		this.id = id;
 		this.nome = nome;
 		this.marca = marca;
 		this.dataDiScadenza = dataDiScadenza;
@@ -91,11 +87,11 @@ public class Prodotto {
 	}
 
 	public int getId() {
-		return Id;
+		return id;
 	}
 
 	public void setId(int id) {
-		Id = id;
+		this.id = id;
 	}
 
 	public String getNome() {
@@ -196,7 +192,7 @@ public class Prodotto {
 
 	@Override
 	public String toString() {
-		return "Prodotto [Id=" + Id + ", nome=" + nome + ", marca=" + marca + ", dataDiScadenza=" + dataDiScadenza
+		return "Prodotto [id=" + id + ", nome=" + nome + ", marca=" + marca + ", dataDiScadenza=" + dataDiScadenza
 				+ ", categoria=" + categoria + ", quantitaDisponibile=" + quantitaDisponibile
 				+ ", quantitaDaAcquistare=" + quantitaDaAcquistare + ", unita=" + unita + ", prezzoUnitario="
 				+ prezzoUnitario + ", prezzoSenzaIva=" + prezzoSenzaIva + ", prezzoIvato=" + prezzoIvato + "]";

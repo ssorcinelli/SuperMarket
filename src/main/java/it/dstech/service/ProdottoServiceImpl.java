@@ -33,10 +33,8 @@ public class ProdottoServiceImpl implements ProdottoService {
 	@Override
 	public Prodotto findById(int id) {
 		return prodottoRepository.findOne(id);
-		
 	}
 	
-
 	@Override
 	public List<Prodotto> findByCategoria(Categoria categoria) {
 		

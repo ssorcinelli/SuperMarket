@@ -14,12 +14,8 @@ public interface ProdottoService {
 	
 	void deleteProdotto(int id);
 	
-	public Prodotto findById(int id);
+	Prodotto findById(int id);
 	
-
-	
-	public List<Prodotto> findByCategoria(Categoria categoria);
-	
-
+	List<Prodotto> findByCategoria(Categoria categoria);
 	
 }

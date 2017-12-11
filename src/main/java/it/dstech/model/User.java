@@ -3,18 +3,14 @@ package it.dstech.model;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class User {
@@ -23,27 +19,16 @@ public class User {
 	@GeneratedValue
 	private int id;
 	
+	@Column(unique=true)
 	private String username;
 	
 	private String password;
-	@Enumerated(EnumType.STRING)
 	
+	@Enumerated(EnumType.STRING)
 	private UserProfileType profileType;
-	@JsonIgnore
-	@ManyToMany
-	@JoinTable(
-		      name="USER_PRODJ",
-		      joinColumns= @JoinColumn (name="USERJ_ID", referencedColumnName="ID"),
-		      inverseJoinColumns=@JoinColumn(name="PRODJ_ID", referencedColumnName="ID")
-		      )
+	
+	@Enumerated(EnumType.STRING)
 	private TipoUtente logtype;
-	@JsonIgnore
-	@ManyToMany
-	@JoinTable(
-		      name="USER_PRODJ",
-		      joinColumns= @JoinColumn (name="USERJ_ID", referencedColumnName="ID"),
-		      inverseJoinColumns=@JoinColumn(name="PRODJ_ID", referencedColumnName="ID")
-		      )
 	
 	private String tel;
 	

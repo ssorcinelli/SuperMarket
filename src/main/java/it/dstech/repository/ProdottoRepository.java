@@ -11,11 +11,7 @@ import it.dstech.model.Prodotto;
 public interface ProdottoRepository extends CrudRepository<Prodotto, Integer> {
 
 	Prodotto findById(int id);
-	
-	
-		
+
 	List<Prodotto> findByCategoria(Categoria categoria);
-	
-//	List<Prodotto> findByUser_id (int id);
-	
+		
 }

@@ -44,8 +44,6 @@ public class ProdottoController {
 	@Autowired
 	private UserService userService;
 
-	@Autowired
-	private Acquisti acquisto;
 	
 	private List<Prodotto> lista;
 
@@ -115,7 +113,7 @@ public class ProdottoController {
 					if (prodotto.getQuantitaDisponibile() > 0 && dNow.isBefore(scadenza)) {
 						Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 						User user = userService.findByUsername(auth.getName());
-						this.acquisto.setAcquisti(user.getId(), codice, prodotto.getId());
+						Acquisti acquisto = new Acquisti(user.getId(), codice, prodotto.getId());
 						userService.saveUser(user);
 						prodotto.setQuantitaDisponibile(prodotto.getQuantitaDisponibile() - 1);
 						prodottoService.saveOrUpdateProdotto(prodotto);
