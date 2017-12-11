@@ -31,7 +31,7 @@ import it.dstech.service.ProdottoService;
 import it.dstech.service.UserService;
 
 @RestController
-@RequestMapping("/prodotti")
+@RequestMapping("/prodotto")
 public class ProdottoController {
 
 	@Autowired
@@ -56,7 +56,7 @@ public class ProdottoController {
 		return new ResponseEntity<Prodotto>(prodott, HttpStatus.CREATED);
 	}
 
-	@PostMapping("/prodotto/saveOrUpdate")
+	@PostMapping("/saveOrUpdate")
 	public ResponseEntity<Prodotto> saveOrUpdateProdotto(@RequestBody Prodotto prodotto) {
 		try {
 			Prodotto saved = prodottoService.saveOrUpdateProdotto(prodotto);
@@ -80,7 +80,7 @@ public class ProdottoController {
 		}
 	}
 
-	@GetMapping("/prodotto/getlist")
+	@GetMapping("/getlist")
 	public ResponseEntity<List<Prodotto>> getAll() {
 		try {
 			List<Prodotto> listaProdotti = prodottoService.findAll();
@@ -92,7 +92,7 @@ public class ProdottoController {
 		}
 	}
 
-	@PostMapping("/prodotto/acquista/{carta}")
+	@PostMapping("/acquista/{carta}")
 	public ResponseEntity<User> acquista(@RequestBody List<Prodotto> prodotti, @PathVariable("carta") int idCarta) {
 		try {
 			CartaCredito card = creditCardService.findById(idCarta);
@@ -134,7 +134,7 @@ public class ProdottoController {
 
 	}
 
-	@PostMapping("/prodotto/{prodottoid}")
+	@PostMapping("/findById/{prodottoid}")
 	public ResponseEntity<Prodotto> findProdottoById(@PathVariable("prodottoid") int id) {
 		try {
 			Prodotto prodotto = prodottoService.findById(id);
@@ -146,7 +146,7 @@ public class ProdottoController {
 		}
 	}
 
-	@GetMapping("/prodotti/getListDisponibili")
+	@GetMapping("/getListDisponibili")
 	public ResponseEntity<List<Prodotto>> getListDisponibili() {
 		try {
 			List<Prodotto> listaProdotti = prodottoService.findAll();
@@ -163,7 +163,7 @@ public class ProdottoController {
 
 	}
 	
-	@GetMapping("/prodotti/getCategoria/{categoria}") 
+	@GetMapping("/getByCategoria/{categoria}") 
 	public ResponseEntity <List<Prodotto>> getCategoria(@PathVariable("categoria") Categoria categoria){
 		try {
 			List<Prodotto> lista= prodottoService.findByCategoria(categoria);
