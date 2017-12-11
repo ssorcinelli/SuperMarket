@@ -2,8 +2,13 @@ package it.dstech.model;
 
 import java.time.LocalDate;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 
 @Entity
@@ -16,14 +21,16 @@ public class Prodotto {
 	
 	private String marca;
 	
-	private LocalDate dataDiScadenza;
+	private String dataDiScadenza;
 	
+	@Enumerated(EnumType.STRING)
 	private Categoria categoria;
 	
 	private double quantitaDisponibile;
 	
 	private double quantitaDaAcquistare;
 	
+	@Enumerated(EnumType.STRING)
 	private Unita unita;
 	
 	private double prezzoUnitario;
@@ -36,7 +43,9 @@ public class Prodotto {
 	
 	private int offerta;
 	
-	public Prodotto(int id, String nome, String marca, LocalDate dataDiScadenza, Categoria categoria,
+	
+	
+	public Prodotto(int id, String nome, String marca, String dataDiScadenza, Categoria categoria,
 			double quantitaDisponibile, double quantitaDaAcquistare, Unita unita, double prezzoUnitario,
 			double prezzoSenzaIva, double prezzoIvato, String img, int offerta) {
 		Id = id;
@@ -58,7 +67,7 @@ public class Prodotto {
 		
 	}
 
-	public Prodotto(String nome, String marca, LocalDate dataDiScadenza, Categoria categoria,
+	public Prodotto(String nome, String marca, String dataDiScadenza, Categoria categoria,
 			double quantitaDisponibile, Unita unita, double prezzoUnitario, String img) {
 		this.nome = nome;
 		this.marca = marca;
@@ -70,7 +79,16 @@ public class Prodotto {
 		this.img = img;
 	}
 
-
+	public Prodotto(String nome, String marca, String dataDiScadenza, double quantitaDisponibile,
+			double prezzoUnitario, String img) {
+		super();
+		this.nome = nome;
+		this.marca = marca;
+		this.dataDiScadenza = dataDiScadenza;
+		this.quantitaDisponibile = quantitaDisponibile;
+		this.prezzoUnitario = prezzoUnitario;
+		this.img = img;
+	}
 
 	public int getId() {
 		return Id;
@@ -96,11 +114,11 @@ public class Prodotto {
 		this.marca = marca;
 	}
 
-	public LocalDate getDataDiScadenza() {
+	public String getDataDiScadenza() {
 		return dataDiScadenza;
 	}
 
-	public void setDataDiScadenza(LocalDate dataDiScadenza) {
+	public void setDataDiScadenza(String dataDiScadenza) {
 		this.dataDiScadenza = dataDiScadenza;
 	}
 
