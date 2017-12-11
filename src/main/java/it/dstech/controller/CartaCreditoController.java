@@ -3,6 +3,7 @@ package it.dstech.controller;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
+import java.util.Base64;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -49,6 +50,10 @@ public class CartaCreditoController {
 			User user = userService.findByUsername(auth.getName());	
 			cartaCredito.setUser(user);
 			CartaCredito saved = cartaCreditoService.saveCartaCredito(cartaCredito);
+			String numeroCarta = saved.getNumero();
+			String encoded = new String(Base64.getEncoder().encode(numeroCarta.getBytes()));
+			saved.setNumero(encoded);
+			cartaCreditoService.saveCartaCredito(cartaCredito);
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yy");
 		    String date = saved.getScadenza();
 		    YearMonth scadenzaMese = YearMonth.parse(date, formatter);
