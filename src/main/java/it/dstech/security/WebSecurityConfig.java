@@ -37,8 +37,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.httpBasic().and().authorizeRequests().antMatchers("/login", "/register", "/getUserModel").permitAll()
 				.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-				.antMatchers("/cellulare/findall", "/cellulare/addcellulare/**", "/cellulare/getlistbyuser")
-				.hasAnyRole("USER", "ADMIN", "DBA").antMatchers("/cellulare/**", "/getmodel", "/delete/**").hasAnyRole("ADMIN", "DBA")
+				.antMatchers("/prodotto/getlistDisponibili", "/prodotto/acquista/**",
+						"/prodotto/getByCategoria", "/prodotto/getStorico", "/cartaCredito/**")
+				.hasAnyRole("USER", "ADMIN", "DBA").antMatchers("/prodotto/**", "/getmodel", "/delete/**").hasAnyRole("ADMIN", "DBA")
 				.anyRequest().authenticated().and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logoutApp"))
 				.logoutSuccessHandler((new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK)));
 	}
