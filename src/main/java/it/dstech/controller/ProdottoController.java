@@ -1,5 +1,8 @@
 package it.dstech.controller;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
@@ -43,7 +46,7 @@ public class ProdottoController {
 
 	@Autowired
 	private ProdottoService prodottoService;
-	
+
 	@Autowired
 	private AcquistiService acqService;
 
@@ -102,7 +105,7 @@ public class ProdottoController {
 			CartaCredito card = creditCardService.findById(idCarta);
 			String numeroCarta = card.getNumero();
 			String decoded = new String(Base64.getDecoder().decode(numeroCarta));
-			logger.info("carta"+decoded);
+			logger.info("carta" + decoded);
 			card.setNumero(decoded);
 			LocalDate dNow = LocalDate.now();
 			logger.info("anno" + dNow);
@@ -127,8 +130,7 @@ public class ProdottoController {
 						userService.saveUser(user);
 						prodotto.setQuantitaDisponibile(prodotto.getQuantitaDisponibile() - 1);
 						prodottoService.saveOrUpdateProdotto(prodotto);
-						
-						
+
 					} else {
 						String encoded = new String(Base64.getEncoder().encode(numeroCarta.getBytes()));
 						card.setNumero(encoded);
@@ -138,17 +140,17 @@ public class ProdottoController {
 				}
 				String encoded = new String(Base64.getEncoder().encode(numeroCarta.getBytes()));
 				card.setNumero(encoded);
-				logger.info("carta "+encoded );
+				logger.info("carta " + encoded);
 				creditCardService.saveCartaCredito(card);
 				return new ResponseEntity<User>(HttpStatus.OK);
 			} else {
 				String encoded = new String(Base64.getEncoder().encode(numeroCarta.getBytes()));
 				card.setNumero(encoded);
 				creditCardService.saveCartaCredito(card);
-				logger.error("lista vuota");}
+				logger.error("lista vuota");
+			}
 			return new ResponseEntity<User>(HttpStatus.INTERNAL_SERVER_ERROR);
-			
-			
+
 		} catch (Exception e) {
 			logger.error("Errore " + e);
 			return new ResponseEntity<User>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -195,19 +197,39 @@ public class ProdottoController {
 			return new ResponseEntity<List<Prodotto>>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
-	
-	@GetMapping ("/getStorico")
-	public ResponseEntity<List<Acquisti>> findStorico (){
+
+	@GetMapping("/getStorico")
+	public ResponseEntity<List<Acquisti>> findStorico() {
 		try {
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 			User user = userService.findByUsername(auth.getName());
-			int idUser=user.getId();
+			int idUser = user.getId();
 			List<Acquisti> storico = acqService.findByIdUser(idUser);
 			return new ResponseEntity<List<Acquisti>>(storico, HttpStatus.OK);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			logger.error("Errore " + e);
 			return new ResponseEntity<List<Acquisti>>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@PostMapping ("/scadenza")
+	private void prodottiScadenza () {
+		try {
+			List<Prodotto> prodotti=  prodottoService.findAll();
+			LocalDate  oggi= LocalDate.now();
+			for( Prodotto p: prodotti) {
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+				LocalDate dataprodotto= LocalDate.parse(p.getDataDiScadenza(), formatter);
+				if (dataprodotto.isBefore(oggi.plusDays(3))) {
+				p.setPrezzoUnitario(p.getPrezzoUnitario()-(p.getPrezzoUnitario()*0.4));
+				BigDecimal decimale= new BigDecimal(p.getPrezzoUnitario());
+				decimale= decimale.setScale(2, RoundingMode.HALF_UP);
+				p.setPrezzoUnitario(decimale.doubleValue());				
+				prodottoService.saveOrUpdateProdotto(p);			
+				}
+			}
+		} catch (Exception e) {
+			logger.error("Errore " + e);
 		}
 	}
 
