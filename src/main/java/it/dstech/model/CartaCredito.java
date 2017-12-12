@@ -19,7 +19,7 @@ public class CartaCredito {
 	
 	private String ccv;
 	
-	private double credito;
+	
 	
 	@ManyToOne
 	@JoinColumn(name="USER_ID")
@@ -29,12 +29,12 @@ public class CartaCredito {
 		
 	}
 
-	public CartaCredito(int id, String numero, String scadenza, String ccv, double credito, User user) {
+	public CartaCredito(int id, String numero, String scadenza, String ccv, User user) {
 		this.id = id;
 		this.numero = numero;
 		this.scadenza = scadenza;
 		this.ccv = ccv;
-		this.credito = credito;
+		
 		this.user = user;
 	}
 
@@ -87,19 +87,6 @@ public class CartaCredito {
 	}
 
 
-
-	public double getCredito() {
-		return credito;
-	}
-
-
-
-	public void setCredito(double credito) {
-		this.credito = credito;
-	}
-
-
-
 	public User getUser() {
 		return user;
 	}
@@ -115,7 +102,7 @@ public class CartaCredito {
 	@Override
 	public String toString() {
 		return "CartaCredito [id=" + id + ", numero=" + numero + ", scadenza=" + scadenza + ", ccv=" + ccv
-				+ ", credito=" + credito + ", user=" + user + "]";
+				+", user=" + user + "]";
 	}
 	
 	

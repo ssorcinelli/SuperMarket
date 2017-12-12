@@ -14,6 +14,7 @@ public interface AcquistiService {
 	
 	Acquisti findOne(int id);
 	
+	List<Acquisti> findByIdUser (int id);
 	
 
 }

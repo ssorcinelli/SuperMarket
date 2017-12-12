@@ -156,7 +156,7 @@ public class ProdottoController {
 
 	}
 
-	@PostMapping("/findById/{prodottoid}")
+	@GetMapping("/findById/{prodottoid}")
 	public ResponseEntity<Prodotto> findProdottoById(@PathVariable("prodottoid") int id) {
 		try {
 			Prodotto prodotto = prodottoService.findById(id);
@@ -193,6 +193,21 @@ public class ProdottoController {
 		} catch (Exception e) {
 			logger.error("Errore " + e);
 			return new ResponseEntity<List<Prodotto>>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	
+	@GetMapping ("/getStorico")
+	public ResponseEntity<List<Acquisti>> findStorico (){
+		try {
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+			User user = userService.findByUsername(auth.getName());
+			int idUser=user.getId();
+			List<Acquisti> storico = acqService.findByIdUser(idUser);
+			return new ResponseEntity<List<Acquisti>>(storico, HttpStatus.OK);
+		}catch (Exception e) {
+			logger.error("Errore " + e);
+			return new ResponseEntity<List<Acquisti>>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 

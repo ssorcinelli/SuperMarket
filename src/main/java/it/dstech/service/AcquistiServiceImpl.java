@@ -34,4 +34,9 @@ public class AcquistiServiceImpl implements AcquistiService{
 		return repo.findOne(id);
 	}
 
+	@Override
+	public List<Acquisti> findByIdUser(int id) {
+		return repo.findByIdUser(id);
+	}
+
 }
