@@ -97,7 +97,8 @@ public class ProdottoController {
 		try {
 			CartaCredito card = creditCardService.findById(idCarta);
 			String numeroCarta = card.getNumero();
-			String decoded = new String(Base64.getDecoder().decode(numeroCarta.getBytes()));
+			String decoded = new String(Base64.getDecoder().decode(numeroCarta));
+			logger.info("carta"+decoded);
 			card.setNumero(decoded);
 			LocalDate dNow = LocalDate.now();
 			logger.info("anno" + dNow);
@@ -121,15 +122,28 @@ public class ProdottoController {
 						userService.saveUser(user);
 						prodotto.setQuantitaDisponibile(prodotto.getQuantitaDisponibile() - 1);
 						prodottoService.saveOrUpdateProdotto(prodotto);
-
-						return new ResponseEntity<User>(HttpStatus.OK);
+						
+						
 					} else {
+						String encoded = new String(Base64.getEncoder().encode(numeroCarta.getBytes()));
+						card.setNumero(encoded);
+						creditCardService.saveCartaCredito(card);
 						return new ResponseEntity<User>(HttpStatus.INTERNAL_SERVER_ERROR);
 					}
 				}
-			} else
-				logger.error("lista vuota");
+				String encoded = new String(Base64.getEncoder().encode(numeroCarta.getBytes()));
+				card.setNumero(encoded);
+				logger.info("carta "+encoded );
+				creditCardService.saveCartaCredito(card);
+				return new ResponseEntity<User>(HttpStatus.OK);
+			} else {
+				String encoded = new String(Base64.getEncoder().encode(numeroCarta.getBytes()));
+				card.setNumero(encoded);
+				creditCardService.saveCartaCredito(card);
+				logger.error("lista vuota");}
 			return new ResponseEntity<User>(HttpStatus.INTERNAL_SERVER_ERROR);
+			
+			
 		} catch (Exception e) {
 			logger.error("Errore " + e);
 			return new ResponseEntity<User>(HttpStatus.INTERNAL_SERVER_ERROR);
