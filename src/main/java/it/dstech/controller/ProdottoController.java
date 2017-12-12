@@ -212,6 +212,7 @@ public class ProdottoController {
 		}
 	}
 
+	
 	@PostMapping ("/scadenza")
 	private void prodottiScadenza () {
 		try {
@@ -233,6 +234,7 @@ public class ProdottoController {
 		}
 	}
 
+	
 	@PostMapping("/popola")
 	public void popola() {
 		try {
