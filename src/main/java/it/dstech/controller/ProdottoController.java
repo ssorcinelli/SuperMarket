@@ -29,6 +29,7 @@ import it.dstech.model.Categoria;
 import it.dstech.model.Prodotto;
 import it.dstech.model.Unita;
 import it.dstech.model.User;
+import it.dstech.service.AcquistiService;
 import it.dstech.service.CartaCreditoService;
 import it.dstech.service.ProdottoService;
 import it.dstech.service.UserService;
@@ -42,6 +43,9 @@ public class ProdottoController {
 
 	@Autowired
 	private ProdottoService prodottoService;
+	
+	@Autowired
+	private AcquistiService acqService;
 
 	@Autowired
 	private UserService userService;
@@ -119,6 +123,7 @@ public class ProdottoController {
 						Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 						User user = userService.findByUsername(auth.getName());
 						Acquisti acquisto = new Acquisti(user.getId(), codice, prodotto.getId());
+						acqService.saveOrUpdateAcquisti(acquisto);
 						userService.saveUser(user);
 						prodotto.setQuantitaDisponibile(prodotto.getQuantitaDisponibile() - 1);
 						prodottoService.saveOrUpdateProdotto(prodotto);
