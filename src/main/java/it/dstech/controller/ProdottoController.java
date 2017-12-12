@@ -3,6 +3,8 @@ package it.dstech.controller;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Random;
 
@@ -44,7 +46,7 @@ public class ProdottoController {
 	@Autowired
 	private UserService userService;
 
-	private List<Prodotto> lista;
+	private List<Prodotto> lista = new ArrayList<Prodotto>();
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -94,6 +96,9 @@ public class ProdottoController {
 	public ResponseEntity<User> acquista(@RequestBody List<Prodotto> prodotti, @PathVariable("carta") int idCarta) {
 		try {
 			CartaCredito card = creditCardService.findById(idCarta);
+			String numeroCarta = card.getNumero();
+			String decoded = new String(Base64.getDecoder().decode(numeroCarta.getBytes()));
+			card.setNumero(decoded);
 			LocalDate dNow = LocalDate.now();
 			logger.info("anno" + dNow);
 			// -----

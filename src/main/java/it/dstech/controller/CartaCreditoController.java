@@ -49,19 +49,19 @@ public class CartaCreditoController {
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 			User user = userService.findByUsername(auth.getName());	
 			cartaCredito.setUser(user);
-			CartaCredito saved = cartaCreditoService.saveCartaCredito(cartaCredito);
-			String numeroCarta = saved.getNumero();
+			String numeroCarta = cartaCredito.getNumero();
 			String encoded = new String(Base64.getEncoder().encode(numeroCarta.getBytes()));
-			saved.setNumero(encoded);
-			cartaCreditoService.saveCartaCredito(cartaCredito);
+			cartaCredito.setNumero(encoded);
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yy");
-		    String date = saved.getScadenza();
+		    String date = cartaCredito.getScadenza();
 		    YearMonth scadenzaMese = YearMonth.parse(date, formatter);
 		    LocalDate scadenza = scadenzaMese.atEndOfMonth();
-			if (scadenza.isAfter(LocalDate.now())) {
+		    logger.info("Data di scadenza"+scadenza);
+			if (!scadenza.isAfter(LocalDate.now())) {
 				logger.error("La data di scadenza non è valida");
 				return new ResponseEntity<CartaCredito>(HttpStatus.INTERNAL_SERVER_ERROR);
 			} else {
+				CartaCredito saved = cartaCreditoService.saveCartaCredito(cartaCredito);
 			return new ResponseEntity<CartaCredito>(saved, HttpStatus.CREATED);
 			}
 		} catch (Exception e) {
