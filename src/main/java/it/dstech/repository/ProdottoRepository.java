@@ -13,5 +13,6 @@ public interface ProdottoRepository extends CrudRepository<Prodotto, Integer> {
 	Prodotto findById(int id);
 
 	List<Prodotto> findByCategoria(Categoria categoria);
-		
+	
+	List<Prodotto> findByCategoriaAndQuantitaDisponibile (Categoria categoria, double disponibili);
 }

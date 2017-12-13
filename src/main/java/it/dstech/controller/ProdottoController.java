@@ -211,21 +211,20 @@ public class ProdottoController {
 		}
 	}
 
-	
-	@PostMapping ("/scadenza")
-	private void prodottiScadenza () {
+	@PostMapping("/scadenza")
+	private void prodottiScadenza() {
 		try {
-			List<Prodotto> prodotti=  prodottoService.findAll();
-			LocalDate  oggi= LocalDate.now();
-			for( Prodotto p: prodotti) {
+			List<Prodotto> prodotti = prodottoService.findAll();
+			LocalDate oggi = LocalDate.now();
+			for (Prodotto p : prodotti) {
 				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-				LocalDate dataprodotto= LocalDate.parse(p.getDataDiScadenza(), formatter);
+				LocalDate dataprodotto = LocalDate.parse(p.getDataDiScadenza(), formatter);
 				if (dataprodotto.isBefore(oggi.plusDays(3))) {
-				p.setPrezzoUnitario(p.getPrezzoUnitario()-(p.getPrezzoUnitario()*0.4));
-				BigDecimal decimale= new BigDecimal(p.getPrezzoUnitario());
-				decimale= decimale.setScale(2, RoundingMode.HALF_UP);
-				p.setPrezzoUnitario(decimale.doubleValue());				
-				prodottoService.saveOrUpdateProdotto(p);			
+					p.setPrezzoUnitario(p.getPrezzoUnitario() - (p.getPrezzoUnitario() * 0.4));
+					BigDecimal decimale = new BigDecimal(p.getPrezzoUnitario());
+					decimale = decimale.setScale(2, RoundingMode.HALF_UP);
+					p.setPrezzoUnitario(decimale.doubleValue());
+					prodottoService.saveOrUpdateProdotto(p);
 				}
 			}
 		} catch (Exception e) {
@@ -233,7 +232,23 @@ public class ProdottoController {
 		}
 	}
 
-	
+	@GetMapping("/getByCategoria/{categoria}/{disponibili}")
+	private ResponseEntity<List<Prodotto>> categoriaDisponibile(@PathVariable("categoria")Categoria categoria,@PathVariable("disponibili") double disponibili) {
+		try {
+			List<Prodotto> lista= new ArrayList<Prodotto>();
+			List<Prodotto> listaCategoria = prodottoService.findByCategoria(categoria);
+			for (Prodotto prodotto : listaCategoria) {
+				if (prodotto.getQuantitaDisponibile() > disponibili) {
+					this.lista.add(prodotto);
+				}
+			}
+			return new ResponseEntity<List<Prodotto>>(lista, HttpStatus.OK);
+		} catch (Exception e) {
+			logger.error("Errore " + e);
+			return new ResponseEntity<List<Prodotto>>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
 	@PostMapping("/popola")
 	public void popola() {
 		try {

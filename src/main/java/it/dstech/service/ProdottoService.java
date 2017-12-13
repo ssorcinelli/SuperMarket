@@ -18,4 +18,6 @@ public interface ProdottoService {
 	
 	List<Prodotto> findByCategoria(Categoria categoria);
 	
+	List<Prodotto> findByCategoriaAndQuantitaDisponibile(Categoria categoria, double disponibili);
+	
 }

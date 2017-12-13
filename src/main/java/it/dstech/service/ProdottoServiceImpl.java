@@ -9,13 +9,12 @@ import it.dstech.model.Categoria;
 import it.dstech.model.Prodotto;
 import it.dstech.repository.ProdottoRepository;
 
-
 @Service
 public class ProdottoServiceImpl implements ProdottoService {
 
 	@Autowired
 	ProdottoRepository prodottoRepository;
-	
+
 	@Override
 	public Prodotto saveOrUpdateProdotto(Prodotto prodotto) {
 		return prodottoRepository.save(prodotto);
@@ -30,17 +29,21 @@ public class ProdottoServiceImpl implements ProdottoService {
 	public void deleteProdotto(int id) {
 		prodottoRepository.delete(id);
 	}
+
 	@Override
 	public Prodotto findById(int id) {
 		return prodottoRepository.findOne(id);
 	}
-	
+
 	@Override
 	public List<Prodotto> findByCategoria(Categoria categoria) {
-		
 		return prodottoRepository.findByCategoria(categoria);
 	}
 
+	@Override
+	public List<Prodotto> findByCategoriaAndQuantitaDisponibile(Categoria categoria, double disponibili) {
+		return prodottoRepository.findByCategoriaAndQuantitaDisponibile(categoria, disponibili);
+	}
 
 	
 
