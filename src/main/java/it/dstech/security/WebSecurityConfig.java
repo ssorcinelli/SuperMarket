@@ -37,11 +37,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.httpBasic().and().authorizeRequests().antMatchers("/login", "/register", "/getUserModel").permitAll()
 				.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-				.antMatchers("/prodotto/getlistDisponibili", "/prodotto/acquista/**",
-						"/prodotto/getByCategoria", "/prodotto/getStorico", "/cartaCredito/**")
-				.hasAnyRole("USER", "ADMIN", "DBA").antMatchers("/prodotto/**", "/getmodel", "/delete/**").hasAnyRole("ADMIN", "DBA")
-				.anyRequest().authenticated().and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logoutApp"))
-				.logoutSuccessHandler((new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK)));
+				.antMatchers("/prodotto/getlistDisponibili", "/prodotto/acquista/**", "/prodotto/getByCategoria",
+						"/prodotto/getStorico", "/cartaCredito/**")
+				.hasAnyRole("USER", "ADMIN", "DBA").antMatchers("/prodotto/**", "/getmodel", "/delete/**")
+				.hasAnyRole("ADMIN", "DBA").anyRequest().authenticated().and().logout()
+				.logoutRequestMatcher(new AntPathRequestMatcher("/logoutApp"))
+				.logoutSuccessHandler((new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK))).and().csrf()
+				.disable();
 	}
 
 	@Bean
