@@ -252,7 +252,7 @@ public class ProdottoController {
 	@PostMapping("/popola")
 	public void popola() {
 		try {
-			Prodotto prodotto = new Prodotto("mandarini", "ortofrutta snc", "30/12/2017", Categoria.ALIMENTI, 3.0,
+			Prodotto prodotto = new Prodotto("Mandarini", "Ortofrutta snc", "30/12/2017", Categoria.ALIMENTI, 3.0,
 					Unita.CHILO, 1.50, "https://www.casaegiardino.it/images/2013/03/foto-mandarini.jpg");
 			Prodotto prodotto1 = new Prodotto("Riso Scotti Sapori e Emozioni, Basmati Profumato", "Riso Scotti",
 					"12/04/2045", Categoria.ALIMENTI, 200, Unita.PEZZO, 1.99,
@@ -285,7 +285,7 @@ public class ProdottoController {
 			Prodotto prodotto12 = new Prodotto("Sole Pump Oxy Concentrato", "Sole", "20/12/2019", Categoria.PROD_CASA,
 					129, Unita.PEZZO, 1.99,
 					"https://images-na.ssl-images-amazon.com/images/I/811z5q-DKJL._SL1500_.jpg");
-			Prodotto prodotto13 = new Prodotto("Borotalco Polvere per la Pelle Rinfrescante e Assorbente - 100 gr",
+			Prodotto prodotto13 = new Prodotto("Borotalco Polvere per la Pelle Rinfrescante e Assorbente",
 					"Borotalco", "10/02/2019", Categoria.PROD_PERSONA, 109, Unita.PEZZO, 1.23,
 					"https://images-na.ssl-images-amazon.com/images/I/81QIZmwegUL._SL1500_.jpg");
 			Prodotto prodotto14 = new Prodotto("Casaldomo Rocca dei Forti Fragolino", "Casaldomo", "20/01/3000",
