@@ -6,44 +6,43 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-
 @Entity
 public class Prodotto {
 	@Id
 	@GeneratedValue
 	private int id;
-	
+
 	private String nome;
-	
+
 	private String marca;
-	
+
 	private String dataDiScadenza;
-	
+
 	@Enumerated(EnumType.STRING)
 	private Categoria categoria;
-	
+
 	private double quantitaDisponibile;
-	
+
 	private double quantitaDaAcquistare;
-	
+
 	@Enumerated(EnumType.STRING)
 	private Unita unita;
-	
+
 	private double prezzoUnitario;
-	
+
 	private double prezzoSenzaIva;
-	
+
 	private double prezzoIvato;
-	
+
 	private String img;
-	
+
 	private int offerta;
-	
-	
-	
+
+	private String imgOfferta;
+
 	public Prodotto(int id, String nome, String marca, String dataDiScadenza, Categoria categoria,
 			double quantitaDisponibile, double quantitaDaAcquistare, Unita unita, double prezzoUnitario,
-			double prezzoSenzaIva, double prezzoIvato, String img, int offerta) {
+			double prezzoSenzaIva, double prezzoIvato, String img, int offerta, String imgOfferta) {
 		this.id = id;
 		this.nome = nome;
 		this.marca = marca;
@@ -57,14 +56,15 @@ public class Prodotto {
 		this.prezzoIvato = prezzoIvato;
 		this.img = img;
 		this.offerta = offerta;
-	}
-	
-	public Prodotto() {
-		
+		this.imgOfferta = imgOfferta;
 	}
 
-	public Prodotto(String nome, String marca, String dataDiScadenza, Categoria categoria,
-			double quantitaDisponibile, Unita unita, double prezzoUnitario, String img) {
+	public Prodotto() {
+
+	}
+
+	public Prodotto(String nome, String marca, String dataDiScadenza, Categoria categoria, double quantitaDisponibile,
+			Unita unita, double prezzoUnitario, String img, String imgOfferta) {
 		this.nome = nome;
 		this.marca = marca;
 		this.dataDiScadenza = dataDiScadenza;
@@ -73,10 +73,11 @@ public class Prodotto {
 		this.unita = unita;
 		this.prezzoUnitario = prezzoUnitario;
 		this.img = img;
+		this.imgOfferta = imgOfferta;
 	}
 
-	public Prodotto(String nome, String marca, String dataDiScadenza, double quantitaDisponibile,
-			double prezzoUnitario, String img) {
+	public Prodotto(String nome, String marca, String dataDiScadenza, double quantitaDisponibile, double prezzoUnitario,
+			String img, String imgOfferta) {
 		super();
 		this.nome = nome;
 		this.marca = marca;
@@ -84,6 +85,8 @@ public class Prodotto {
 		this.quantitaDisponibile = quantitaDisponibile;
 		this.prezzoUnitario = prezzoUnitario;
 		this.img = img;
+		this.imgOfferta = imgOfferta;
+
 	}
 
 	public int getId() {
@@ -163,7 +166,7 @@ public class Prodotto {
 	}
 
 	public void setPrezzoSenzaIva(double prezzoSenzaIva) {
-		this.prezzoSenzaIva = this.prezzoIvato - (this.prezzoIvato/100*22);
+		this.prezzoSenzaIva = this.prezzoIvato - (this.prezzoIvato / 100 * 22);
 	}
 
 	public double getPrezzoIvato() {
@@ -190,14 +193,21 @@ public class Prodotto {
 		this.offerta = offerta;
 	}
 
+	public String getImgOfferta() {
+		return imgOfferta;
+	}
+
+	public void setImgOfferta(String imgOfferta) {
+		this.imgOfferta = imgOfferta;
+	}
+
 	@Override
 	public String toString() {
 		return "Prodotto [id=" + id + ", nome=" + nome + ", marca=" + marca + ", dataDiScadenza=" + dataDiScadenza
 				+ ", categoria=" + categoria + ", quantitaDisponibile=" + quantitaDisponibile
 				+ ", quantitaDaAcquistare=" + quantitaDaAcquistare + ", unita=" + unita + ", prezzoUnitario="
-				+ prezzoUnitario + ", prezzoSenzaIva=" + prezzoSenzaIva + ", prezzoIvato=" + prezzoIvato + "]";
+				+ prezzoUnitario + ", prezzoSenzaIva=" + prezzoSenzaIva + ", prezzoIvato=" + prezzoIvato + ", img="
+				+ img + ", offerta=" + offerta + ", imgOfferta=" + imgOfferta + "]";
 	}
-	
-	
 
 }
