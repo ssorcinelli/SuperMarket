@@ -65,7 +65,7 @@ public class Prodotto {
 	}
 
 	public Prodotto(String nome, String marca, String dataDiScadenza, Categoria categoria, double quantitaDisponibile,
-			Unita unita, double prezzoUnitario, String img, String imgOfferta) {
+			Unita unita, double prezzoUnitario, String img, String imgOfferta, double quantitaDaAcquistare) {
 		this.nome = nome;
 		this.marca = marca;
 		this.dataDiScadenza = dataDiScadenza;
@@ -75,10 +75,11 @@ public class Prodotto {
 		this.prezzoUnitario = prezzoUnitario;
 		this.img = img;
 		this.imgOfferta = imgOfferta;
+		this.quantitaDaAcquistare=quantitaDaAcquistare;
 	}
 
 	public Prodotto(String nome, String marca, String dataDiScadenza, double quantitaDisponibile, double prezzoUnitario,
-			String img, String imgOfferta, double quantitaDaAcquistare) {
+			String img, String imgOfferta) {
 		super();
 		this.nome = nome;
 		this.marca = marca;
@@ -87,7 +88,7 @@ public class Prodotto {
 		this.prezzoUnitario = prezzoUnitario;
 		this.img = img;
 		this.imgOfferta = imgOfferta;
-		this.quantitaDaAcquistare=quantitaDaAcquistare;
+		
 	}
 
 	public int getId() {
