@@ -79,7 +79,6 @@ public class CartaCreditoController {
 //			logger.info("aaaa"+principal.getName());
 			User user = userService.findByUsername(auth.getName());	
 			logger.info(user.toString());
-
 			List<CartaCredito> listaCard = cartaCreditoService.findByUserId(user.getId());
 			return new ResponseEntity<List<CartaCredito>>(listaCard, HttpStatus.OK);
 		} catch (Exception e) {

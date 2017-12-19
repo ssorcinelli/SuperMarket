@@ -19,8 +19,6 @@ public class CartaCredito {
 	
 	private String ccv;
 	
-	
-	
 	@ManyToOne
 	@JoinColumn(name="USER_ID")
 	private User user;
@@ -102,10 +100,7 @@ public class CartaCredito {
 	@Override
 	public String toString() {
 		return "CartaCredito [id=" + id + ", numero=" + numero + ", scadenza=" + scadenza + ", ccv=" + ccv
-				+", user=" + user + "]";
+				+"]";
 	}
-	
-	
-	
 
 }
