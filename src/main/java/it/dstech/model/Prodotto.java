@@ -57,6 +57,7 @@ public class Prodotto {
 		this.img = img;
 		this.offerta = offerta;
 		this.imgOfferta = imgOfferta;
+
 	}
 
 	public Prodotto() {
@@ -77,7 +78,7 @@ public class Prodotto {
 	}
 
 	public Prodotto(String nome, String marca, String dataDiScadenza, double quantitaDisponibile, double prezzoUnitario,
-			String img, String imgOfferta) {
+			String img, String imgOfferta, double quantitaDaAcquistare) {
 		super();
 		this.nome = nome;
 		this.marca = marca;
@@ -86,7 +87,7 @@ public class Prodotto {
 		this.prezzoUnitario = prezzoUnitario;
 		this.img = img;
 		this.imgOfferta = imgOfferta;
-
+		this.quantitaDaAcquistare=quantitaDaAcquistare;
 	}
 
 	public int getId() {
