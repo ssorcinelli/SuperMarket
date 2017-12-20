@@ -6,7 +6,6 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 import java.util.Random;
 
@@ -98,14 +97,11 @@ public class ProdottoController {
 		}
 	}
 
-	@PostMapping("/acquista/{carta}")
-	public ResponseEntity<User> acquista(@RequestBody List<Prodotto> prodotti, @PathVariable("carta") int idCarta) {
+	@PostMapping("/acquista/{idCarta}")
+	public ResponseEntity<User> acquista(@RequestBody List<Prodotto> prodotti, @PathVariable("idCarta") int idCarta) {
 		try {
 			CartaCredito card = creditCardService.findById(idCarta);
-			String numeroCarta = card.getNumero();
-			String decoded = new String(Base64.getDecoder().decode(numeroCarta));
-			logger.info("carta" + decoded);
-			card.setNumero(decoded);
+			logger.info("numero carta: "+card.getNumero());
 			LocalDate dNow = LocalDate.now();
 			logger.info("anno" + dNow);
 			// -----
@@ -129,23 +125,12 @@ public class ProdottoController {
 						userService.saveUser(user);
 						prodotto.setQuantitaDisponibile(prodotto.getQuantitaDisponibile() - 1);
 						prodottoService.saveOrUpdateProdotto(prodotto);
-
 					} else {
-						String encoded = new String(Base64.getEncoder().encode(numeroCarta.getBytes()));
-						card.setNumero(encoded);
-						creditCardService.saveCartaCredito(card);
 						return new ResponseEntity<User>(HttpStatus.INTERNAL_SERVER_ERROR);
 					}
 				}
-				String encoded = new String(Base64.getEncoder().encode(numeroCarta.getBytes()));
-				card.setNumero(encoded);
-				logger.info("carta " + encoded);
-				creditCardService.saveCartaCredito(card);
 				return new ResponseEntity<User>(HttpStatus.OK);
 			} else {
-				String encoded = new String(Base64.getEncoder().encode(numeroCarta.getBytes()));
-				card.setNumero(encoded);
-				creditCardService.saveCartaCredito(card);
 				logger.error("lista vuota");
 			}
 			return new ResponseEntity<User>(HttpStatus.INTERNAL_SERVER_ERROR);
