@@ -115,25 +115,26 @@ public class ProdottoController {
 			Random random = new Random();
 			int codice = random.nextInt(999);
 			if (!prodotti.isEmpty()) {
+				logger.info("la lista c'è");
 				for (Prodotto prodotto : prodotti) {
-
 					if (prodotto.getQuantitaDisponibile() > 0 && dNow.isBefore(scadenza)) {
+						logger.info("sto per fare l'acquisto");
 						Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 						User user = userService.findByUsername(auth.getName());
-						Acquisti acquisto = new Acquisti(user.getId(), codice, prodotto.getId());
+						Acquisti acquisto = new Acquisti(user.getId(), codice, prodotto.getId(), LocalDate.now());
 						acqService.saveOrUpdateAcquisti(acquisto);
+						logger.info("Transazione: "+acquisto);
 						userService.saveUser(user);
 						prodotto.setQuantitaDisponibile(prodotto.getQuantitaDisponibile() - 1);
 						prodottoService.saveOrUpdateProdotto(prodotto);
 					} else {
-						return new ResponseEntity<User>(HttpStatus.INTERNAL_SERVER_ERROR);
+						logger.info("problema");
 					}
 				}
-				return new ResponseEntity<User>(HttpStatus.OK);
 			} else {
 				logger.error("lista vuota");
 			}
-			return new ResponseEntity<User>(HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<User>(HttpStatus.OK);
 
 		} catch (Exception e) {
 			logger.error("Errore " + e);

@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -83,12 +84,13 @@ public class CartaCreditoController {
 		}
 	}
 	
-	@PostMapping("/deletecard/{cardid}")
+	@DeleteMapping("/deletecard/{cardid}")
 	public ResponseEntity<User> deleteCard(@PathVariable("cardid") int idCard) {
 		try {
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 			User user = userService.findByUsername(auth.getName());	
 			CartaCredito cartaCredito = cartaCreditoService.findById(idCard);
+			cartaCreditoService.deleteCartaCredito(idCard);
 			List<CartaCredito> listaCard = cartaCreditoService.findByUserId(user.getId());
 			listaCard.remove(cartaCredito);
 			user.setListaCartaCredito(listaCard);	

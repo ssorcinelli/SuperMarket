@@ -1,5 +1,7 @@
 package it.dstech.model;
 
+import java.time.LocalDate;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -17,19 +19,23 @@ public class Acquisti {
 	
 	private int idProdotto;
 	
+	private LocalDate data;
+	
 	
 
-	public Acquisti(int id, int idUser, int idFattura, int idProdotto) {
+	public Acquisti(int id, int idUser, int idFattura, int idProdotto, LocalDate data) {
 		this.id = id;
 		this.idUser = idUser;
 		this.idFattura = idFattura;
 		this.idProdotto = idProdotto;
+		this.data = data;
 	}
 	
-	public Acquisti(int idUser, int idFattura, int idProdotto) {
+	public Acquisti(int idUser, int idFattura, int idProdotto, LocalDate data) {
 		this.idUser = idUser;
 		this.idFattura = idFattura;
 		this.idProdotto = idProdotto;
+		this.data = data;
 	}
 	
 	public Acquisti() {
@@ -68,9 +74,17 @@ public class Acquisti {
 		this.idProdotto = idProdotto;
 	}
 
+	public LocalDate getData() {
+		return data;
+	}
+
+	public void setData(LocalDate data) {
+		this.data = data;
+	}
+
 	@Override
 	public String toString() {
 		return "Acquisti [id=" + id + ", idUser=" + idUser + ", idFattura=" + idFattura + ", idProdotto=" + idProdotto
-				+ "]";
+				+ ", data=" + data + "]";
 	}
 }
