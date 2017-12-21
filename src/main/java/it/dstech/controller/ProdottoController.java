@@ -121,7 +121,11 @@ public class ProdottoController {
 						logger.info("sto per fare l'acquisto");
 						Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 						User user = userService.findByUsername(auth.getName());
-						Acquisti acquisto = new Acquisti(user.getId(), codice, prodotto.getId(), LocalDate.now());
+						LocalDate data = LocalDate.now();
+						DateTimeFormatter dataFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+						String dataAcquisto = data.format(dataFormatter).toString();
+						logger.info("data acquisto: "+dataAcquisto);
+						Acquisti acquisto = new Acquisti(user.getId(), codice, prodotto.getId(), dataAcquisto);
 						acqService.saveOrUpdateAcquisti(acquisto);
 						logger.info("Transazione: "+acquisto);
 						userService.saveUser(user);

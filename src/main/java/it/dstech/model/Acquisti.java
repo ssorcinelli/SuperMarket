@@ -19,11 +19,11 @@ public class Acquisti {
 	
 	private int idProdotto;
 	
-	private LocalDate data;
+	private String data;
 	
 	
 
-	public Acquisti(int id, int idUser, int idFattura, int idProdotto, LocalDate data) {
+	public Acquisti(int id, int idUser, int idFattura, int idProdotto, String data) {
 		this.id = id;
 		this.idUser = idUser;
 		this.idFattura = idFattura;
@@ -31,7 +31,7 @@ public class Acquisti {
 		this.data = data;
 	}
 	
-	public Acquisti(int idUser, int idFattura, int idProdotto, LocalDate data) {
+	public Acquisti(int idUser, int idFattura, int idProdotto, String data) {
 		this.idUser = idUser;
 		this.idFattura = idFattura;
 		this.idProdotto = idProdotto;
@@ -74,11 +74,11 @@ public class Acquisti {
 		this.idProdotto = idProdotto;
 	}
 
-	public LocalDate getData() {
+	public String getData() {
 		return data;
 	}
 
-	public void setData(LocalDate data) {
+	public void setData(String data) {
 		this.data = data;
 	}
 
