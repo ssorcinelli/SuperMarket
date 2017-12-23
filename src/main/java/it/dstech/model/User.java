@@ -42,6 +42,8 @@ public class User {
 	
 	private String prov;
 	
+	private String passSocial;
+	
 	@JsonIgnore
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="user")
 	private List<CartaCredito> listaCartaCredito;
@@ -51,7 +53,7 @@ public class User {
 	}
 
 	public User(int id, String username, String password, UserProfileType profileType, TipoUtente logtype, String tel,
-			String via, String cap, String citta, String prov, List<CartaCredito> listaCartaCredito) {
+			String via, String cap, String citta, String prov, List<CartaCredito> listaCartaCredito, String passSocial) {
 		this.id = id;
 		this.username = username;
 		this.password = password;
@@ -63,6 +65,7 @@ public class User {
 		this.citta = citta;
 		this.prov = prov;
 		this.listaCartaCredito = listaCartaCredito;
+		this.passSocial = passSocial;
 	}
 
 	public int getId() {
@@ -152,12 +155,22 @@ public class User {
 	public void setListaCartaCredito(List<CartaCredito> listaCartaCredito) {
 		this.listaCartaCredito = listaCartaCredito;
 	}
+	
+	
+
+	public String getPassSocial() {
+		return passSocial;
+	}
+
+	public void setPassSocial(String passSocial) {
+		this.passSocial = passSocial;
+	}
 
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", password=" + password + ", profileType=" + profileType
 				+ ", logtype=" + logtype + ", tel=" + tel + ", via=" + via + ", cap=" + cap + ", citta=" + citta
-				+ ", prov=" + prov + ", listaCartaCredito=" + listaCartaCredito + "]";
+				+ ", prov=" + prov + ", passSocial=" + passSocial + ", listaCartaCredito=" + listaCartaCredito + "]";
 	}
 	
 }
