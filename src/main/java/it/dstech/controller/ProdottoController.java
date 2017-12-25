@@ -176,8 +176,8 @@ public class ProdottoController {
 
 	}
 
-	@GetMapping("/getByCategoria/{categoria}")
-	public ResponseEntity<List<Prodotto>> getCategoria(@PathVariable("categoria") Categoria categoria) {
+	@GetMapping("/findByCategoria/{categoria}")
+	public ResponseEntity<List<Prodotto>> findByCategoria(@PathVariable("categoria") Categoria categoria) {
 		try {
 			List<Prodotto> lista = prodottoService.findByCategoria(categoria);
 			return new ResponseEntity<List<Prodotto>>(lista, HttpStatus.OK);

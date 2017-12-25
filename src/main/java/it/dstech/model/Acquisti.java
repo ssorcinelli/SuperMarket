@@ -1,10 +1,14 @@
 package it.dstech.model;
 
-import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Acquisti {
@@ -38,6 +42,12 @@ public class Acquisti {
 		this.data = data;
 	}
 	
+	public Acquisti(int idUser, int idFattura, String data) {
+		this.idUser = idUser;
+		this.idFattura = idFattura;
+		this.data = data;
+	}
+
 	public Acquisti() {
 		
 	}
